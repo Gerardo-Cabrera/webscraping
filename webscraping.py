@@ -26,7 +26,7 @@ class IMDbScraper:
 
         # Return the list of movies
         return list_movies
-    
+
     # Gets and returns the HTML content of the IMDb "Top 250" page
     def _get_html(self):
         url = self.url
@@ -38,7 +38,7 @@ class IMDbScraper:
         # Use BeautifulSoup to parse HTML content
         soup = BeautifulSoup(web_content, "html.parser")
         return soup
-    
+
     # Extracts and returns movie data from a row of the movies table
     def _extract_information(self, row):
         title = row.select_one("td.titleColumn a").text
