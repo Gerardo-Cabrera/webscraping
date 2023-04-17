@@ -1,4 +1,4 @@
-# Webscraping exercise
+# Webscraping to get top 10 movies for imdb
 
 - Clone the source repository.
 - Install the requeriments from the requirements.txt file.
