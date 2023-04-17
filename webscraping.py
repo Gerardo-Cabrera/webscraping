@@ -1,6 +1,8 @@
 import json
 import requests
+import textwrap
 from bs4 import BeautifulSoup
+from pathlib import Path
 
 
 class IMDbScraper:
@@ -47,14 +49,16 @@ class IMDbScraper:
         return {"title": title, "year": year, "rating": rating}
 
     # Save the list of movies in a .txt file
-    def save_txt(self):
-        with open("movies.txt", "w", encoding="utf-8") as txt_file:
-            for index, movie in enumerate(self.list_movies, start=1):
-                txt_file.write("{0}. {title} ({year}) - Rating: {rating}\n".format(index, **movie))
+    def save_txt(self, filename="movies.txt"):
+        lines = (textwrap.dedent(f"""
+        {index}. {movie["title"]} ({movie["year"]}) - Rating: {movie["rating"]}
+        """).strip() for index, movie in enumerate(self.list_movies, start=1))
+
+        Path(filename).write_text("\n".join(lines), encoding="utf-8")
 
     # Save the list of movies in a .json file
-    def save_json(self):
-        with open("movies.json", "w", encoding="utf-8") as json_file:
+    def save_json(self, filename="movies.json"):
+        with open(filename, "w", encoding="utf-8") as json_file:
             json.dump(self.list_movies, json_file, ensure_ascii=False, indent=4)
 
 
